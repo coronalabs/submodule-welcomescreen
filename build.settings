@@ -1,0 +1,9 @@
+settings =
+{
+	orientation =
+	{
+			-- TODO: this should logically be "landscapeRight" but needs to be "portrait" for now
+			default = "portrait", --"landscapeRight",
+			supported = { "portrait", "landscapeRight" }
+	}
+}

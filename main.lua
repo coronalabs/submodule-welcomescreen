@@ -291,7 +291,7 @@ g_pointerLocations.chrome['coronaLogo'] =
 	height = g_coronaLogo.contentHeight,
 }
 simulator.setCursorRect(g_pointerLocations.chrome['coronaLogo'])
-g_coronaLogo:addEventListener("tap", function () OpenURL("https://coronalabs.com", "homepage") end)
+g_coronaLogo:addEventListener("tap", function () OpenURL("https://solar2d.com", "homepage") end)
 
 
 -- Display the Corona version text (build number)
@@ -312,7 +312,7 @@ g_pointerLocations.chrome['version'] =
 	height = version.contentHeight,
 }
 simulator.setCursorRect(g_pointerLocations.chrome['version'])
-version:addEventListener("tap", function () OpenURL("https://developer.coronalabs.com/downloads/daily-builds", "daily-builds") end)
+version:addEventListener("tap", function () OpenURL("https://github.com/coronalabs/corona/releases", "daily-builds") end)
 
 -- Create tab bar
 
@@ -329,9 +329,7 @@ local function handleTabBarEvent( newTab )
 	if newTab == "tab2" then
 		url = "https://docs.coronalabs.com/api"
 	elseif newTab == "tab3" then
-		url = "https://marketplace.coronalabs.com"
-	elseif newTab == "tab4" then
-		url = "https://forums.coronalabs.com"
+		url = "https://forums.solar2d.com"
 	end
 
 	if newTab == "tab1" and g_currentTab ~= "tab1" then
@@ -356,7 +354,7 @@ end
  
 local function makeTabBar( listener )
 	
-	local tabLabels = {"Projects", "Documentation", "Marketplace", "Forums"}
+	local tabLabels = {"Projects", "Documentation", "Forums"}
 	local tabXs = {66, 230, 410, 551}
 
 	local tabButtons = {}
@@ -464,7 +462,7 @@ local function setupQuickLinks()
 			x = 162,
 			y = 622,
 			title="Request a Feature",
-			link="http://feedback.coronalabs.com/?utm_source=simulator", -- Request a Feature
+			link="https://github.com/coronalabs/corona/issues", -- Request a Feature
 		},
 	}
 
@@ -870,7 +868,7 @@ addHoverObject(copyright2, onHover)
 
 copyright2:addEventListener( "touch", function( event )
 	if event.phase == "ended" then
-		OpenURL("https://coronalabs.com/terms-and-conditions/?utm_source=simulator", "Term of service")
+		OpenURL("https://solar2d.com/LICENSE.txt", "Term of service")
 	end
 end )
 
@@ -908,7 +906,7 @@ addHoverObject(copyright4, onHover)
 
 copyright4:addEventListener( "touch", function( event )
 	if event.phase == "ended" then
-		OpenURL("https://coronalabs.com/privacy-policy/?utm_source=simulator", "Privacy Policy")
+		OpenURL("https://solar2d.com/PRIVACY_POLICY.txt", "Privacy Policy")
 	end
 end )
 

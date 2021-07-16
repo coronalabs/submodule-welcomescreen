@@ -1,9 +1,9 @@
 ------------------------------------------------------------------------------
 --
--- This file is part of the Corona game engine.
+-- This file is part of the Solar2D game engine.
 -- For overview and more information on licensing please refer to README.md 
 -- Home page: https://github.com/coronalabs/corona
--- Contact: support@coronalabs.com
+-- Contact: support@solar2d.com
 --
 ------------------------------------------------------------------------------
 
@@ -276,25 +276,25 @@ latestNewsLine.strokeWidth = 1
 local bgTop = display.newRect(halfW, 40, screenW, 80 )
 bgTop:setFillColor(unpack(topBlockBackgroundColor))
 
--- Corona Logo
+-- Solar2D Logo
 
-local g_coronaLogo = display.newImageRect( "assets/CoronaLogo.png", 144.5, 45.5)
-g_coronaLogo.x = 927 + g_coronaLogo.contentWidth*0.5
-g_coronaLogo.y = 15 + g_coronaLogo.contentHeight*0.5
+local g_solar2dLogo = display.newImageRect( "assets/CoronaLogo.png", 144.5, 45.5)
+g_solar2dLogo.x = 927 + g_solar2dLogo.contentWidth*0.5
+g_solar2dLogo.y = 15 + g_solar2dLogo.contentHeight*0.5
 
 g_pointerLocations.chrome['coronaLogo'] =
 {
 	cursor = "pointingHand",
-	x = g_coronaLogo.x - g_coronaLogo.contentWidth*0.5,
-	y = g_coronaLogo.y - g_coronaLogo.contentHeight*0.5,
-	width = g_coronaLogo.contentWidth,
-	height = g_coronaLogo.contentHeight,
+	x = g_solar2dLogo.x - g_solar2dLogo.contentWidth*0.5,
+	y = g_solar2dLogo.y - g_solar2dLogo.contentHeight*0.5,
+	width = g_solar2dLogo.contentWidth,
+	height = g_solar2dLogo.contentHeight,
 }
 simulator.setCursorRect(g_pointerLocations.chrome['coronaLogo'])
-g_coronaLogo:addEventListener("tap", function () OpenURL("https://solar2d.com", "homepage") end)
+g_solar2dLogo:addEventListener("tap", function () OpenURL("https://solar2d.com", "homepage") end)
 
 
--- Display the Corona version text (build number)
+-- Display the Solar2D version text (build number)
 
 local buildNum = system.getInfo( "build" )
 local version = newRetinaText(buildNum, 0, 0, 15)
@@ -456,7 +456,7 @@ local function setupQuickLinks()
 			x = 162,
 			y = 585,
 			title="Ads / Monetization",
-			link="https://docs.coronalabs.com/guide/monetization/monetization/?utm_source=simulator", -- Corona Ads
+			link="https://docs.coronalabs.com/guide/monetization/monetization/?utm_source=simulator", -- Ads & monetization
 		},
 		{
 			x = 162,
@@ -699,28 +699,6 @@ local function parseHTTPDateFormat(dateStr)
 	return os.time{year=year, month=month, day=day, hour=0}
 end
 
-local function downloadFeeds()
-
-	-- DOWNLOAD BLOG FEED DATA AND DISPLAY IF SUCCESSFUL
-	local function networkListener( event )
-		local blogFeed
-		local feedModificationDate = 0
-		if not event.isError and event.status < 400 then
-			feedModificationDate = parseHTTPDateFormat(event.responseHeaders['Last-Modified'])
-			-- get from temporary directory (downloaded version) if no network error
-			local decodeJSON = function() blogFeed = json.decode( jsonFile( "feed.json", system.TemporaryDirectory ) ); end
-			pcall( decodeJSON )
-		end
-		loadFeedPanel(feedModificationDate, blogFeed)
-	end
-
-	network.download( "https://coronalabs.com/links/homescreen/feed.json?t="..tostring(os.time()), "GET", networkListener, "feed.json", system.TemporaryDirectory )
-end
-
--- wrap initial call in 1ms timer so network requests don't delay app launch as much
-timer.performWithDelay( 1, downloadFeeds )
-
-
 
 -- BUTTONS
 
@@ -847,7 +825,7 @@ addProjectButtons()
 -------------------
 
 
-local copyright1 = newRetinaText("© 2020 Corona Labs Inc. ", 34, 675, fontSizeCopyright)
+local copyright1 = newRetinaText("© 2020-2021 Solar2D ", 34, 675, fontSizeCopyright)
 copyright1:translate( copyright1.contentWidth*0.5, 0 )
 copyright1:setFillColor( unpack(textColorCopyright) )
 

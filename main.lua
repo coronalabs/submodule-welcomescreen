@@ -825,7 +825,7 @@ addProjectButtons()
 -------------------
 
 
-local copyright1 = newRetinaText("© 2020-2021 Solar2D ", 34, 675, fontSizeCopyright)
+local copyright1 = newRetinaText("© 2020-" .. buildNum:sub(1,4) .. " Solar2D ", 34, 675, fontSizeCopyright)
 copyright1:translate( copyright1.contentWidth*0.5, 0 )
 copyright1:setFillColor( unpack(textColorCopyright) )
 

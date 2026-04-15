@@ -105,6 +105,43 @@ local function limitDisplayLength(len, str, font, fontSize, isPath)
 	return str .. (str ~= origStr and "…" or "")
 end
 
+-- Load and parse config.lua for optional listName property
+local function getProjectNameFromConfig(projectDir)
+	-- Strip and replace "main.lua" from the end of projectDir
+	local configPath = projectDir:sub(1,-9) .. "config.lua"
+
+	-- Handle missing or malformed config.lua gracefully
+
+	if lfs.attributes(configPath) == nil then
+		return nil
+	end
+
+	local success, listName = pcall(function()
+		-- Isolated write scope so config.lua's globals don't leak into ours
+		local configEnv = {}
+		setmetatable(configEnv, {__index = _G})
+
+		local configChunk = loadfile(configPath)
+		if not configChunk then
+			return nil
+		end
+
+		setfenv(configChunk, configEnv)
+		configChunk()
+
+		if type(configEnv.application) == "table" and type(configEnv.application.listName) == "string" then
+			return configEnv.application.listName
+		end
+
+		return nil
+	end)
+
+	if success then
+		return listName
+	else
+		return nil
+	end
+end
 
 -- Functions to enable and remove pointers
 
@@ -1109,12 +1146,18 @@ function showRecents()
 			if projects[i] then
 				local projectgroup = display.newGroup()
 
-				local projectName = projects[i].formattedString
 				local projectDir = projects[i].fullURLString
+				local projectName = getProjectNameFromConfig(projectDir)
 
 				if platform == "Win" then
 					projectDir = projectDir .. "\\..\\."
 				end
+				
+				-- Fall back to default projectName if config.lua doesn't have application.listName
+				if not projectName then
+					projectName = projects[i].formattedString
+				end
+
 				local icon = nil
 
 				if projectName == nil or projectName == "" then
